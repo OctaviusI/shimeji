@@ -293,7 +293,7 @@ class Sukima_ModelProvider(ModelProvider):
         }
         async with aiohttp.ClientSession() as session:
             try:
-                async with session.post(f'{self.endpoint_url}/api/v1/models/generate', json=args.__dict__, headers={'Authorization': f'Bearer {self.token}'}) as resp:
+                async with session.post(f'{self.endpoint_url}/api/v1/models/generate', json=args, headers={'Authorization': f'Bearer {self.token}'}) as resp:
                     if resp.status == 200:
                         js = await resp.json()
                         return js['output'][len(args['prompt']):]
