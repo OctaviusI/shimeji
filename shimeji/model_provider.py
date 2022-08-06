@@ -237,7 +237,7 @@ class Sukima_ModelProvider(ModelProvider):
                 'rep_p_range': args.sample_args.rep_p_range,
                 'rep_p_slope': args.sample_args.rep_p_slope,
                 'bad_words': args.sample_args.bad_words,
-                'logit_biases': args.sample_args.logit_biases
+                'logit_biases': args.sample_args.logit_biases.toJSON()
             },
             'gen_args': {
                 'max_length': args.gen_args.max_length,
@@ -249,7 +249,7 @@ class Sukima_ModelProvider(ModelProvider):
             }
         }
         try:
-            r = requests.post(f'{self.endpoint_url}/api/v1/models/generate', data=json.dumps(args, indent=4, sort_keys= false, default= str), headers={'Authorization': f'Bearer {self.token}'})
+            r = requests.post(f'{self.endpoint_url}/api/v1/models/generate', data=json.dumps(args, indent=4, sort_keys= true, default= str), headers={'Authorization': f'Bearer {self.token}'})
         except Exception as e:
             raise e
         if r.status_code == 200:
