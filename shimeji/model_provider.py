@@ -214,7 +214,6 @@ class Sukima_ModelProvider(ModelProvider):
         else:
             raise Exception(f'Could not authenticate with Sukima. Error: {r.text}')
         
-    
     def generate(self, args: ModelGenRequest):
         """Generate a response from the Sukima endpoint.
         
