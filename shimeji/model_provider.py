@@ -214,19 +214,19 @@ class Sukima_ModelProvider(ModelProvider):
         else:
             raise Exception(f'Could not authenticate with Sukima. Error: {r.text}')
         
-        def conv_list_objects_to_list_dict(self, list_objects): 
-            """Convert the elements of a list to a dictionary for JSON compatability.
+    def conv_list_objects_to_list_dict(self, list_objects): 
+        """Convert the elements of a list to a dictionary for JSON compatability.
 
-            :param list_objects: The list. 
-            :type list_objects: list
-            :return: A list which has it's elements converted to dictionaries.
-            :rtype: list
-            """
+        :param list_objects: The list. 
+        :type list_objects: list
+        :return: A list which has it's elements converted to dictionaries.
+        :rtype: list
+        """
 
-            list_dict = []
-            for object in list_objects:
-                list_dict.append(vars(object))
-            return list_dict 
+        list_dict = []
+        for object in list_objects:
+            list_dict.append(vars(object))
+        return list_dict 
     
     def generate(self, args: ModelGenRequest):
         """Generate a response from the Sukima endpoint.
