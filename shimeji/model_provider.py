@@ -214,6 +214,7 @@ class Sukima_ModelProvider(ModelProvider):
         else:
             raise Exception(f'Could not authenticate with Sukima. Error: {r.text}')
         
+    
     def generate(self, args: ModelGenRequest):
         """Generate a response from the Sukima endpoint.
         
@@ -223,7 +224,6 @@ class Sukima_ModelProvider(ModelProvider):
         :rtype: str
         :raises Exception: If the request fails.
         """
-        #print("sync, before stuff: "+args.sample_args.logit_biases)
         testlist= []
         for ob in args.sample_args.logit_biases:
             testlist.append(vars(ob))
@@ -241,7 +241,7 @@ class Sukima_ModelProvider(ModelProvider):
                 'rep_p_range': args.sample_args.rep_p_range,
                 'rep_p_slope': args.sample_args.rep_p_slope,
                 'bad_words': args.sample_args.bad_words,
-                'logit_biases': testlist
+                'logit_biases': list_objects_to_list_dict(args.sample_args.logit_biases)
             },
             'gen_args': {
                 'max_length': args.gen_args.max_length,
@@ -252,8 +252,6 @@ class Sukima_ModelProvider(ModelProvider):
                 'best_of': args.gen_args.best_of
             }
         }
-        #print("Async, after stuff: ",args['logit_biases'])
-        print("Arguments in sync generate ", args)
         try:
             r = requests.post(f'{self.endpoint_url}/api/v1/models/generate', data=json.dumps(args), headers={'Authorization': f'Bearer {self.token}'})
         except Exception as e:
@@ -272,11 +270,7 @@ class Sukima_ModelProvider(ModelProvider):
         :rtype: str
         :raises Exception: If the request fails.
         """ 
-        print("Async, before stuff: ",args.sample_args.logit_biases, "\n")
-        testlist= []
-        for ob in args.sample_args.logit_biases:
-            testlist.append(vars(ob))
-        
+  
         args = {
             'model': args.model,
             'prompt': args.prompt,
@@ -291,7 +285,7 @@ class Sukima_ModelProvider(ModelProvider):
                 'rep_p_range': args.sample_args.rep_p_range,
                 'rep_p_slope': args.sample_args.rep_p_slope,
                 'bad_words': args.sample_args.bad_words,
-                'logit_biases': testlist  
+                'logit_biases': list_objects_to_list_dict(args.sample_args.logit_biases)  
             },
             'gen_args': {
                 'max_length': args.gen_args.max_length,
@@ -302,8 +296,6 @@ class Sukima_ModelProvider(ModelProvider):
                 'best_of': args.gen_args.best_of
             }
         }
-        #print("Async, after stuff: ",args['sample_args']['logit_biases'])
-        print("Args in async generate: ", args)
         async with aiohttp.ClientSession() as session:
             try:
                 async with session.post(f'{self.endpoint_url}/api/v1/models/generate', json=args, headers={'Authorization': f'Bearer {self.token}'}) as resp:
@@ -356,7 +348,21 @@ class Sukima_ModelProvider(ModelProvider):
                         raise Exception(f'Could not classify image. Error: {await resp.text()}')
             except Exception as e:
                 raise e
-
+    
+    def list_objects_to_list_dict(self, list_objects): 
+        """Convert the elements of a list to a dictionary for JSON compatability.
+        
+        :param list_objects: The list. 
+        :type list_objects: list
+        :return: A list which has it's elements converted to dictionaries.
+        :rtype: list
+        """
+        
+        list_dict = []
+        for object in list_objects:
+            list_dict.append(vars(object))
+        return list_dict 
+        
     def should_respond(self, context, name):
         """Determine if the Sukima endpoint predicts that the name should respond to the given context.
 
