@@ -266,7 +266,6 @@ class Sukima_ModelProvider(ModelProvider):
         :rtype: str
         :raises Exception: If the request fails.
         """ 
-        print(args.sample_args.logit_biases)
         args = {
             'model': args.model,
             'prompt': args.prompt,
@@ -292,6 +291,7 @@ class Sukima_ModelProvider(ModelProvider):
                 'best_of': args.gen_args.best_of
             }
         }
+        print(args)
         async with aiohttp.ClientSession() as session:
             try:
                 async with session.post(f'{self.endpoint_url}/api/v1/models/generate', json=args, headers={'Authorization': f'Bearer {self.token}'}) as resp:
