@@ -224,9 +224,7 @@ class Sukima_ModelProvider(ModelProvider):
         :rtype: str
         :raises Exception: If the request fails.
         """
-        testlist= []
-        for ob in args.sample_args.logit_biases:
-            testlist.append(vars(ob))
+
         args = {
             'model': args.model,
             'prompt': args.prompt,
