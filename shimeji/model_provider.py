@@ -252,7 +252,7 @@ class Sukima_ModelProvider(ModelProvider):
         #print("Async, after stuff: ",args['logit_biases'])
         print("Arguments in sync generate ", args)
         try:
-            r = requests.post(f'{self.endpoint_url}/api/v1/models/generate', data=json.dumps(args.__dict__, indent=4, sort_keys= true, default= str), headers={'Authorization': f'Bearer {self.token}'})
+            r = requests.post(f'{self.endpoint_url}/api/v1/models/generate', data=json.dumps(args, indent=4, sort_keys= true, default= str), headers={'Authorization': f'Bearer {self.token}'})
         except Exception as e:
             raise e
         if r.status_code == 200:
