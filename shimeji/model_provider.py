@@ -273,7 +273,7 @@ class Sukima_ModelProvider(ModelProvider):
         
         for ob in range(0,len(args.sample_args.logit_biases)): 
             #args.sample_args.logit_biases[ob] = args.sample_args.logit_biases[ob].toJSON()
-            print(args.sample_args.logitbiases[ob])
+            print(args.sample_args.logit_biases[ob])
         
         args = {
             'model': args.model,
