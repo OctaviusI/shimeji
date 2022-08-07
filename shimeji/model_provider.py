@@ -252,7 +252,7 @@ class Sukima_ModelProvider(ModelProvider):
         #print("Async, after stuff: ",args['logit_biases'])
         print("Arguments in sync generate ", args)
         try:
-            r = requests.post(f'{self.endpoint_url}/api/v1/models/generate', data=json.dumps(args.__dict__, indent=4, sort_keys= true, default= str), headers={'Authorization': f'Bearer {self.token}'})
+            r = requests.post(f'{self.endpoint_url}/api/v1/models/generate', data=json.dumps(args.__dict__, indent=4, sort_keys= True, default= str), headers={'Authorization': f'Bearer {self.token}'})
         except Exception as e:
             raise e
         if r.status_code == 200:
@@ -303,7 +303,7 @@ class Sukima_ModelProvider(ModelProvider):
         print("Args in async generate: ", args)
         async with aiohttp.ClientSession() as session:
             try:
-                async with session.post(f'{self.endpoint_url}/api/v1/models/generate', json=json.dumps(args, indent=4, sort_keys= true, default= str), headers={'Authorization': f'Bearer {self.token}'}) as resp:
+                async with session.post(f'{self.endpoint_url}/api/v1/models/generate', json=json.dumps(args, indent=4, sort_keys= True, default= str), headers={'Authorization': f'Bearer {self.token}'}) as resp:
                     if resp.status == 200:
                         js = await resp.json()
                         return js['output'][len(args['prompt']):]
