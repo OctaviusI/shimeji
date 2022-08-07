@@ -288,7 +288,7 @@ class Sukima_ModelProvider(ModelProvider):
                 'rep_p_range': args.sample_args.rep_p_range,
                 'rep_p_slope': args.sample_args.rep_p_slope,
                 'bad_words': args.sample_args.bad_words,
-                'logit_biases': args.sample_args.logit_biases
+                'logit_biases': json.dumps([ob.__dict__ for ob in args.sample_args.logit_biases]) 
             },
             'gen_args': {
                 'max_length': args.gen_args.max_length,
@@ -303,7 +303,7 @@ class Sukima_ModelProvider(ModelProvider):
         print("Args in async generate: ", args)
         async with aiohttp.ClientSession() as session:
             try:
-                async with session.post(f'{self.endpoint_url}/api/v1/models/generate', json=args, headers={'Authorization': f'Bearer {self.token}'}) as resp:
+                async with session.post(f'{self.endpoint_url}/api/v1/models/generate', json=data=json.dumps(args.__dict__, indent=4, sort_keys= true, default= str), headers={'Authorization': f'Bearer {self.token}'}) as resp:
                     if resp.status == 200:
                         js = await resp.json()
                         return js['output'][len(args['prompt']):]
