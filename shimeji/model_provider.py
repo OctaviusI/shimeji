@@ -224,6 +224,9 @@ class Sukima_ModelProvider(ModelProvider):
         :raises Exception: If the request fails.
         """
         #print("sync, before stuff: "+args.sample_args.logit_biases)
+        testlist= []
+        for ob in args.sample_args.logit_biases:
+            testlist.append(vars(ob))
         args = {
             'model': args.model,
             'prompt': args.prompt,
@@ -238,7 +241,7 @@ class Sukima_ModelProvider(ModelProvider):
                 'rep_p_range': args.sample_args.rep_p_range,
                 'rep_p_slope': args.sample_args.rep_p_slope,
                 'bad_words': args.sample_args.bad_words,
-                'logit_biases': args.sample_args.logit_biases.toJSON()
+                'logit_biases': testlist
             },
             'gen_args': {
                 'max_length': args.gen_args.max_length,
@@ -252,7 +255,7 @@ class Sukima_ModelProvider(ModelProvider):
         #print("Async, after stuff: ",args['logit_biases'])
         print("Arguments in sync generate ", args)
         try:
-            r = requests.post(f'{self.endpoint_url}/api/v1/models/generate', data=json.dumps(args.__dict__, indent=4, sort_keys= True, default= str), headers={'Authorization': f'Bearer {self.token}'})
+            r = requests.post(f'{self.endpoint_url}/api/v1/models/generate', data=json.dumps(args), headers={'Authorization': f'Bearer {self.token}'})
         except Exception as e:
             raise e
         if r.status_code == 200:
