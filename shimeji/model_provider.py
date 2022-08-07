@@ -271,7 +271,7 @@ class Sukima_ModelProvider(ModelProvider):
         """ 
         print("Async, before stuff: ",args.sample_args.logit_biases, "\n")
         
-        for ob in sample_args.logit_biases: 
+        for ob in args.sample_args.logit_biases: 
             ob = ob.toJSON()
         
         args = {
