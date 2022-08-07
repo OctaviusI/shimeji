@@ -303,7 +303,7 @@ class Sukima_ModelProvider(ModelProvider):
         print("Args in async generate: ", args)
         async with aiohttp.ClientSession() as session:
             try:
-                async with session.post(f'{self.endpoint_url}/api/v1/models/generate', json=json.dumps(args, indent=4, sort_keys= True, default= str), headers={'Authorization': f'Bearer {self.token}'}) as resp:
+                async with session.post(f'{self.endpoint_url}/api/v1/models/generate', json=args, headers={'Authorization': f'Bearer {self.token}'}) as resp:
                     if resp.status == 200:
                         js = await resp.json()
                         return js['output'][len(args['prompt']):]
