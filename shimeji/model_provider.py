@@ -219,14 +219,17 @@ class Sukima_ModelProvider(ModelProvider):
 
         :param list_objects: The list. 
         :type list_objects: list
-        :return: A list which has it's elements converted to dictionaries.
+        :return: A list which has it's elements converted to dictionaries. If empty, return the list.
         :rtype: list
         """
 
         list_dict = []
-        for object in list_objects:
-            list_dict.append(vars(object))
-        return list_dict 
+        if list_objects is not None:
+            for object in list_objects:
+                list_dict.append(vars(object))
+            return list_dict
+        else:
+            return list_objects
     
     def generate(self, args: ModelGenRequest):
         """Generate a response from the Sukima endpoint.
