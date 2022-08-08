@@ -224,7 +224,8 @@ class Sukima_ModelProvider(ModelProvider):
         """
 
         list_dict = []
-        if list_objects is not None:
+        print(list_objects)
+        if list_objects:
             for object in list_objects:
                 list_dict.append(vars(object))
             return list_dict
