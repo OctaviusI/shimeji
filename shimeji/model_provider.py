@@ -435,7 +435,7 @@ class Sukima_ModelProvider(ModelProvider):
         """
         args = self.kwargs['args']
         args.prompt = context
-        args.gen_args.eos_token_id = 198
+        args.gen_args.eos_token_id = 13
         args.gen_args.min_length = 1
         response = self.generate(args)
         return response
@@ -450,7 +450,7 @@ class Sukima_ModelProvider(ModelProvider):
         """
         args = self.kwargs['args']
         args.prompt = context
-        args.gen_args.eos_token_id = 198
+        args.gen_args.eos_token_id = 13
         args.gen_args.min_length = 1
         response = await self.generate_async(args)
         return response
@@ -535,7 +535,7 @@ class TextSynth_ModelProvider(ModelProvider):
         """
         args = self.kwargs['args']
         args.prompt = context
-        args.gen_args.eos_token_id = 198
+        args.gen_args.eos_token_id = 13
         args.gen_args.min_length = 1
         response = await self.generate_async(args)
         return response
