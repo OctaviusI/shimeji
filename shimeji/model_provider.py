@@ -261,7 +261,6 @@ class Sukima_ModelProvider(ModelProvider):
                 'max_length': args.gen_args.max_length,
                 'max_time': args.gen_args.max_time,
                 'min_length': args.gen_args.min_length,
-                'eos_token_id': args.gen_args.eos_token_id,
                 'logprobs': args.gen_args.logprobs,
                 'best_of': args.gen_args.best_of
             }
@@ -305,7 +304,6 @@ class Sukima_ModelProvider(ModelProvider):
                 'max_length': args.gen_args.max_length,
                 'max_time': args.gen_args.max_time,
                 'min_length': args.gen_args.min_length,
-                'eos_token_id': args.gen_args.eos_token_id,
                 'logprobs': args.gen_args.logprobs,
                 'best_of': args.gen_args.best_of
             }
@@ -383,7 +381,6 @@ class Sukima_ModelProvider(ModelProvider):
         args = copy.deepcopy(self.kwargs['args'])
         args.prompt = context
         args.gen_args.max_length = 10
-        args.gen_args.eos_token_id = 25
         args.gen_args.best_of = None
         args.sample_args.temp = 0.25
         args.sample_args.rep_p = None
@@ -415,7 +412,6 @@ class Sukima_ModelProvider(ModelProvider):
         args = copy.deepcopy(self.kwargs['args'])
         args.prompt = context
         args.gen_args.max_length = 10
-        args.gen_args.eos_token_id = 25
         args.gen_args.best_of = None
         args.sample_args.temp = 0.25
         args.sample_args.rep_p = None
@@ -438,7 +434,6 @@ class Sukima_ModelProvider(ModelProvider):
         """
         args = self.kwargs['args']
         args.prompt = context
-        args.gen_args.eos_token_id = 198
         args.gen_args.min_length = 1
         response = self.generate(args)
         return response
@@ -453,7 +448,6 @@ class Sukima_ModelProvider(ModelProvider):
         """
         args = self.kwargs['args']
         args.prompt = context
-        args.gen_args.eos_token_id = 198
         args.gen_args.min_length = 1
         response = await self.generate_async(args)
         return response
@@ -538,7 +532,6 @@ class TextSynth_ModelProvider(ModelProvider):
         """
         args = self.kwargs['args']
         args.prompt = context
-        args.gen_args.eos_token_id = 198
         args.gen_args.min_length = 1
         response = await self.generate_async(args)
         return response
